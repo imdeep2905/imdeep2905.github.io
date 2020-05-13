@@ -17,6 +17,23 @@
                 font-family: 'Roboto Mono', monospace;
             }
         </style>
+        <script>            
+            var i = 0;
+            var txt = 'Another nerd who likes coding and machine learning.'
+            function animate_intro() 
+            {
+                if (i < txt.length)
+                {
+                    document.getElementById("intro").innerHTML += txt.charAt(i);
+                    i++;
+                    setTimeout(animate_intro, 50);
+                }
+            }
+            /*document.addEventListener("DOMContentLoaded", function(event) 
+            { 
+                animate_intro();
+            });*/
+        </script>
     </head>
     <body> 
         <!--Nab Bar-->
@@ -41,7 +58,7 @@
             <div class = "container-fluid text-center" style="padding-top:270px;padding-bottom:400px">
                 <img class = "rounded-circle" src="Images/profile3.jpg" width="22%" height="22%" />
                 <h1 style="color:aliceblue"><b>Deep Raval</b></h1>
-                <h3 style="color: aliceblue;">Just another nerd who likes coding and ML.</h3>
+                <h3 id="intro" style="color: whitesmoke;">Another nerd who likes coding and machine learning.</h3>
             </div>
         </div>
 
@@ -54,7 +71,7 @@
                 Apart from academia I like music and playing games (especially CS:GO). 
             </p>
             <p>
-                I also do competitive coding and my weapon of choice for that is <b>C++</b>. You can find me on these platforms:<br/>
+                I also do competitive coding as a hobby and my weapon of choice for that is <b>C++</b>. You can find me on these platforms:<br/>
                 <!--
                 <a href="https://www.codechef.com/users/deep2905" target="_blank"><img class = "img-thumbnail" src="Images/codechef.svg" title="Codechef" /></a>
                 <a href="https://codeforces.com/profile/deep2905" target="_blank"><img class = "img-thumbnail"src="Images/codeforces.png" title="Codeforces" width="100px" height="100px" /></a>
@@ -62,10 +79,9 @@
                 <a href="https://atcoder.jp/users/imdeep2905" target="_blank"><img class = "img-thumbnail" src="Images/atcoder.png" title="Atcoder" width="100px" height="100px" /></a>
                 <br/>
                 -->
-                <a class="" target="_blank" href="https://www.codechef.com/users/deep2905">CodeChef</a> 
-                <a target="_blank" href="https://codeforces.com/profile/deep2905">Codeforces</a> 
-                <a target="_blank" href="https://www.hackerrank.com/deepraval2905">HackerRank</a>
-                <a target="_blank" href="https://atcoder.jp/users/imdeep2905">AtCoder</a>
+                <a class="" target="_blank" href="https://www.codechef.com/users/deep2905" style="color:aquamarine;">CodeChef</a> 
+                <a target="_blank" href="https://codeforces.com/profile/deep2905"style="color:aquamarine;">Codeforces</a> 
+                <a target="_blank" href="https://www.hackerrank.com/deepraval2905"style="color:aquamarine;">HackerRank</a>
             </p>
         </div>
 
@@ -154,10 +170,11 @@
                     <a href="https://www.github.com/imdeep2905" target="_blank"><img class = "rounded-circle" src="Images/github.png" title="Github" width="100px" height="100px" /></a>
                     <a href="https://www.instagram.com/deep_raval_2905" target="_blank"><img class = "rounded-circle" src="Images/instagram.png" title="Instagram" width="100px" height="100px" /></a>
                     <a href="mailto:deepraval2905@gmail.com"><img class = "rounded-circle" src="Images/gmail.png" title="Email" width="100px" height="100px" /></a>
-                    <a href="https://www.facebook.com/deep.raval.359" target="_blank"><img class = "rounded-circle" title="Faceook" src="Images/facebook.png" width="100px" height="100px" /></a>
+                    <a href="https://www.facebook.com/deep.raval.359" target="_blank"><img class = "rounded-circle" title="Facebook" src="Images/facebook.png" width="100px" height="100px" /></a>
         </div>
         <div class="container-fluid bg-light text-center" >
-            <a href='https://www.stat-counter.org/'>StatCounter</a> <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=faed62e667a2d15fa205127bf9fe1ed5372d3974'></script>
+            <a href='https://www.stat-counter.org/' style="color:#f9f9f9;">StatCounter</a>
+            <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=faed62e667a2d15fa205127bf9fe1ed5372d3974'></script>
             <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/672213/t/13"></script>
             </br>
             <b>Total Visitors</b>
