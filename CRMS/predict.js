@@ -10,9 +10,10 @@ $("#csv-selector").change(function ()
 });
 
 let model;
+
 (async function()
 {
-    model = await tf.loadLayersModel('Models/3D/model.json');
+    $(".progress-bar").show(); 
+    model = await tf.loadLayersModel('Models/2D/model.json', false);
     $('.progress-bar').hide();
-    console.log("bitch-loading!!");
 })();
