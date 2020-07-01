@@ -1,4 +1,8 @@
 let model, file;
+let CLASSES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+           'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 
+           'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+           'U', 'V', 'W', 'X', 'Y', 'Z']
 $(document).on('change', '#csv-selector', function() 
 {
     var reader = new FileReader();
@@ -80,6 +84,20 @@ $(document).on('click', '#predict-btn',async function()
     processed = [processed];
     var X = tf.tensor3d(processed);
     let predictions = await model.predict(X).data();
+    let top5 = Array.from(predictions)
+    .map(function (p, i) {
+        return {
+            probability: p,
+            className: CLASSES[i]
+        };
+    }).sort(function (a, b) {
+        return b.probability - a.probability;
+    }).slice(0, 3);
+
+    $("#prediction-list").empty();
+    top5.forEach(function (p) {
+        $("#prediction-list").append(`<li>${p.className}: ${p.probability.toFixed(6)}</li>`);
+    });
     console.log(predictions);
     console.log(X);
 });
