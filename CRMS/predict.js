@@ -85,8 +85,9 @@ $(document).on('click', '#predict-btn',async function()
     processed = [processed];
     var X = tf.tensor3d(processed);
     //Minmax scaling
-    X.sub(X.min()).div(X.max().sub(X.min()));
-    X.mul(X, 2);
+    X.sub(X.min());
+    X.div(X.max().sub(X.min()));
+    X.mul(2);
     X.add(-1);
     //Std scaler
     X.sub(X, X.mean()).div(tf.moments(X).variance.sqrt());
