@@ -1,29 +1,74 @@
 let model, file;
 $(document).on('change', '#csv-selector', function() 
 {
-    let reader = new FileReader();
-    reader.onload = function () 
-    {
-        let dataURL = reader.result;
-        $("#prediction-list").empty();
-    }
-    file = $("#csv-selector").prop("files")[0];
-    reader.readAsDataURL(file);
+    var reader = new FileReader();
+    reader.onload = processFile(this.files[0]);
+    reader.readAsText(this.files[0]);
+    get_csv(this.files[0]);
 });
+
+function processFile(theFile)
+{
+    return function(e) 
+    { 
+        var theBytes = e.target.result; //.split('base64,')[1]; 
+        file = theBytes;
+    }
+}
+function get_csv(url)
+{
+var data;
+	$.ajax({
+	  type: "GET",  
+	  url: url,
+	  dataType: "text",       
+	  success: function(response)  
+	  {
+		data = $.csv.toArrays(response);
+		generateHtmlTable(data);
+	  }   
+	});
+}
+function generateHtmlTable(data) {
+    var html = '<table  class="table table-condensed table-hover table-striped">';
+ 
+      if(typeof(data[0]) === 'undefined') {
+        return null;
+      } else {
+		$.each(data, function( index, row ) {
+		  //bind header
+		  if(index == 0) {
+			html += '<thead>';
+			html += '<tr>';
+			$.each(row, function( index, colData ) {
+				html += '<th>';
+				html += colData;
+				html += '</th>';
+			});
+			html += '</tr>';
+			html += '</thead>';
+			html += '<tbody>';
+		  } else {
+			html += '<tr>';
+			$.each(row, function( index, colData ) {
+				html += '<td>';
+				html += colData;
+				html += '</td>';
+			});
+			html += '</tr>';
+		  }
+		});
+		html += '</tbody>';
+		html += '</table>';
+		alert(html);
+		document.getElementById('uploaded-data').innerText = html;
+	  }
+    }	
+    
 $(document).on('click', '#predict-btn', function() 
 {
-    var new_csv = d3.csvParseRows(document.getElementById('csv-selector').value);
-    d3.csv(document.getElementById('csv-selector').value, function(err, data) {
-        console.log(data)
-        /*
-          output:
-          [
-            { col1:'aaa1', col2:'aaa2', col3:'aaa3', col4:'aaa4' },
-            { col1:'bbb1', col2:'bbb2', col3:'bbb3', col4:'bbb4' },
-            { col1:'ccc1', col2:'ccc2', col3:'ccc3', col4:'ccc4' }
-          ]
-        */
-      })
+    var parsed = d3.csvParse(file);
+    console.log(parsed);
 });
 
 (async function()
