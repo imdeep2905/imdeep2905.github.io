@@ -90,7 +90,7 @@ $(document).on('click', '#predict-btn',async function()
     X.mul(2);
     X.add(-1);
     //Std scaler
-    X.sub(X, X.mean()).div(tf.moments(X).variance.sqrt());
+    //X.sub(X, X.mean()).div(tf.moments(X).variance.sqrt());
     let predictions = await model.predict(X).data();
     let top5 = Array.from(predictions)
     .map(function (p, i) {
