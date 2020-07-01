@@ -14,6 +14,6 @@ let model;
 (async function()
 {
     $(".progress-bar").show(); 
-    model = await tf.loadLayersModel('Models/2D/model.json', false);
+    model = await tf.loadLayersModel('Models/1D/model.json', false);
     $('.progress-bar').hide();
 })();
