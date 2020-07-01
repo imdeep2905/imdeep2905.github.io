@@ -111,7 +111,7 @@ $(document).on('click', '#predict-btn',async function()
 
 (async function()
 {
-    model = await tf.loadLayersModel('Models/3D/model.json');
+    model = await tf.loadLayersModel('Models/4J/model.json');
     $('.progress-bar').hide();
     console.log(model.summary());
 })();
