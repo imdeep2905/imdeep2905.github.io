@@ -4,7 +4,7 @@ $(document).on('change', '#csv-selector', function()
     var reader = new FileReader();
     reader.onload = processFile(this.files[0]);
     reader.readAsText(this.files[0]);
-    get_csv(this.files[0]);
+    generateHtmlTable();
 });
 
 function processFile(theFile)
@@ -15,60 +15,73 @@ function processFile(theFile)
         file = theBytes;
     }
 }
-function get_csv(url)
+
+function generateHtmlTable() 
 {
-var data;
-	$.ajax({
-	  type: "GET",  
-	  url: url,
-	  dataType: "text",       
-	  success: function(response)  
-	  {
-		data = $.csv.toArrays(response);
-		generateHtmlTable(data);
-	  }   
-	});
+    ;
+}	
+
+function process_csv() 
+{
+    take = ['ACCELEROMETER X (m/s²)',
+    'ACCELEROMETER Y (m/s²)',
+    'ACCELEROMETER Z (m/s²)',
+    'LINEAR ACCELERATION X (m/s²)',
+    'LINEAR ACCELERATION Y (m/s²)',
+    'LINEAR ACCELERATION Z (m/s²)',
+    'GYROSCOPE X (rad/s)',
+    'GYROSCOPE Y (rad/s)',
+    'GYROSCOPE Z (rad/s)',
+    'MAGNETIC FIELD X (μT)',
+    'MAGNETIC FIELD Y (μT)',
+    'MAGNETIC FIELD Z (μT)'];
+    var data = file.split("\n");
+    for(var i = 0; i < data[0].split(",").length; i++)
+    {
+        let ok = 0;
+        for(var j = 0; j < take.length; j ++)
+        {
+            if(data[0].split(",")[i] == take[j])
+            {
+                ok = 1;
+                break;
+            }
+        }
+        if(ok == 0)
+        {
+            for(var j = 0; j < data.length; j ++)
+            {
+                data[j] = data[j].split(",");
+                data[j].splice(i, 1);
+                data[j] = data[j].join(",");
+            }
+            i = -1;
+        }
+    }
+    data.shift();
+    var temp = data;
+    data = [];
+    for(var i = 0; i < temp.length; i ++)
+    {
+        var subdata = [[1]];
+        subdata.shift();
+        for(var j = 0; j < temp[i].split(",").length; j ++)
+        {
+            subdata.push(parseFloat(temp[i].split(",")[j]));
+        }
+        data.push(subdata);
+    }
+    return data;
 }
-function generateHtmlTable(data) {
-    var html = '<table  class="table table-condensed table-hover table-striped">';
- 
-      if(typeof(data[0]) === 'undefined') {
-        return null;
-      } else {
-		$.each(data, function( index, row ) {
-		  //bind header
-		  if(index == 0) {
-			html += '<thead>';
-			html += '<tr>';
-			$.each(row, function( index, colData ) {
-				html += '<th>';
-				html += colData;
-				html += '</th>';
-			});
-			html += '</tr>';
-			html += '</thead>';
-			html += '<tbody>';
-		  } else {
-			html += '<tr>';
-			$.each(row, function( index, colData ) {
-				html += '<td>';
-				html += colData;
-				html += '</td>';
-			});
-			html += '</tr>';
-		  }
-		});
-		html += '</tbody>';
-		html += '</table>';
-		alert(html);
-		document.getElementById('uploaded-data').innerText = html;
-	  }
-    }	
-    
-$(document).on('click', '#predict-btn', function() 
+
+$(document).on('click', '#predict-btn',async function() 
 {
-    var parsed = d3.csvParse(file);
-    console.log(parsed);
+    var processed = process_csv();
+    processed = [processed];
+    var X = tf.tensor3d(processed);
+    let predictions = await model.predict(X).data();
+    console.log(predictions);
+    console.log(X);
 });
 
 (async function()
