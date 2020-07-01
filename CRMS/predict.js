@@ -80,9 +80,16 @@ function process_csv()
 
 $(document).on('click', '#predict-btn',async function() 
 {
+
     var processed = process_csv();
     processed = [processed];
     var X = tf.tensor3d(processed);
+    //Minmax scaling
+    X.sub(X.min()).div(X.max().sub(X.min()));
+    X.mul(X, 2);
+    X.add(-1);
+    //Std scaler
+    X.sub(X, X.mean()).div(tf.moments(X).variance.sqrt());
     let predictions = await model.predict(X).data();
     let top5 = Array.from(predictions)
     .map(function (p, i) {
@@ -92,7 +99,7 @@ $(document).on('click', '#predict-btn',async function()
         };
     }).sort(function (a, b) {
         return b.probability - a.probability;
-    }).slice(0, 3);
+    }).slice(0, 5);
 
     $("#prediction-list").empty();
     top5.forEach(function (p) {
