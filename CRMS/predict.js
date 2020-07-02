@@ -29,7 +29,7 @@ $(document).on('click', '#predict-btn',async function()
         type: "POST",
         url: "https://cpms-restapi.herokuapp.com/predict",
         data: {
-          csv : file
+          files : {"csv" : file}
         },
         success: function(data) {
           console.log(data);
