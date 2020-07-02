@@ -6,13 +6,10 @@
         <meta name="author" content="Deep Raval, Jaymin Suhagiya">
         <!--<link rel="icon" href="./Images/D.PNG" type="image/png" >-->
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Source+Code+Pro:wght@500&display=swap" rel="stylesheet">    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.1/dist/tf.min.js"></script>
-        <script src="https://d3js.org/d3.v5.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="predict.js"></script>
         <style>
             body
@@ -25,18 +22,18 @@
     <body>
         <div class="container mt-5">
             <div class="row">
-                <div class="col-12">
-                    <div class="progress progress-bar progress-bar-striped progress-bar-animated mb-2">
-                        Hold on Tight !, Getting predictions.
-                    </div>
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-6">
                     <input id="csv-selector" class="form-control border-0", type="file" accept=".csv" />
                 </div>
                 <div class="col-6">
                     <button id="predict-btn" class="btn btn-dark float-right" >Predict</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="progress progress-bar progress-bar-striped progress-bar-animated mb-2" style="display:none;">
+                        Please Wait ! Getting predictions...
+                    </div>
                 </div>
             </div>
             <hr>
@@ -46,14 +43,28 @@
                     <ol id="prediction-list"></ol>
                 </div>
             </div>
-            <hr>
+            <!--
             <div class="row">
                 <div class="col">
                     <h2 class="ml-3">Uploaded Data</h2>
                 </div>
             </div>
                 <div id="uploaded-data" class="row">
-            </div>
+            </div>-->
         </div>
+        <!--
+        <div id="error" class="modal fade modal-sm center" style="display:none;">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h4 class="modal-title">Error!</h4>
+                </div>
+                <div class="modal-body">
+                    <p>It looks like something was wrong with your data.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>-->
     </body>
 </html>
